@@ -1,5 +1,6 @@
 package pages;
 
+import Common.CommonClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -7,11 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class NewCustomerPage {
@@ -71,9 +70,7 @@ public class NewCustomerPage {
         expectedCusInfor.add(this.email);
 
         for (int i = 0 ; i < expectedCusInfor.size(); i ++){
-            System.out.println("1" + expectedCusInfor);
-            System.out.println("2" + newCustomerInfor);
-            Assert.assertEquals(expectedCusInfor.get(i), newCustomerInfor.get(i));
+            Assert.assertEquals (newCustomerInfor.get(i),expectedCusInfor.get(i));
         }
     }
 
@@ -182,7 +179,7 @@ public class NewCustomerPage {
         }
     }
 
-    public void inputDateOfBirth(String dob)  {
+    public void inputDateOfBirth(String dob) throws ParseException {
         WebElement element = this.driver.findElement(this.inputDateOfBirth);
         actions.moveToElement(element).build().perform();
         String expectedMessage = "Date Field must not be blank";
@@ -194,12 +191,10 @@ public class NewCustomerPage {
         }
         else {
            this.dateOfBirth = dob;
-//            SimpleDateFormat format = new SimpleDateFormat("mm-dd-yyyy");
-//            Date date = format.parse(dob);
-//            System.out.println(date);
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-//            this.dateOfBirth = dateFormat.format(date);
-//            date.format(this.dateOfBirth);
+//           CommonClass.convertFormatStringToDate(this.dateOfBirth);
+           SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyyyy");
+           SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+           this.dateOfBirth = date.format(dateFormat.parse(this.dateOfBirth));
         }
     }
 
@@ -231,5 +226,11 @@ public class NewCustomerPage {
         WebElement titleNewCustomerPage = this.driver.findElement(this.titlePageCustomer);
         titleNewCustomerPage.isDisplayed();
         Assert.assertEquals(titleNewCustomerPage.getText(),"Add New Customer");
+    }
+
+    public void gotoHomePage(){
+        WebElement homeMenu = this.driver.findElement(By.xpath("//a[text()='Home']"));
+        actions.moveToElement(homeMenu).build().perform();
+        homeMenu.click();
     }
 }

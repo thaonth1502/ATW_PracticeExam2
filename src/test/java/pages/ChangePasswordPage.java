@@ -12,11 +12,19 @@ public class ChangePasswordPage {
     WebDriver driver;
     Actions actions;
     LoginPage loginPage = new LoginPage(this.driver);
-    String actualPassword = loginPage.getPassword();
+    private String actualPassword;
+
+    public String getActualPassword(){
+        return actualPassword;
+    }
+    public void setActualPassword(String actualPassword){
+        this.actualPassword = actualPassword;
+    }
 
     public ChangePasswordPage(WebDriver driver) {
         this.driver = driver;
         this.actions = new Actions(this.driver);
+        this.actualPassword = loginPage.getPassword();
     }
 
     By titleForm = By.xpath("//p[normalize-space()='Change Password']");
@@ -47,8 +55,6 @@ public class ChangePasswordPage {
         if(newPassword == ""){
             String actualMessage = this.driver.findElement(this.actualMessNewPass).getText();
             Assert.assertEquals(actualMessage,expectedMessage);
-        }else {
-            this.actualPassword = newPassword;
         }
     }
 
@@ -67,9 +73,7 @@ public class ChangePasswordPage {
 
     public void clickSubmitButton(){
         this.driver.findElement(this.bnt_submit).click();
-        System.out.println(this.actualPassword);
-        loginPage.setPassword(this.actualPassword);
-        BaseTest.ini_password = loginPage.getPassword();
+        setActualPassword(this.actualPassword);
     }
 
     public void verifyMessageSuccessfully(){
@@ -77,7 +81,8 @@ public class ChangePasswordPage {
       String expectedMessage = "Password is Changed";
       Assert.assertEquals(messageSuccess,expectedMessage);
       this.driver.switchTo().alert().accept();
-      loginPage.setPassword(this.actualPassword);
+      setActualPassword(this.actualPassword);
+      this.actualPassword = getActualPassword();
     }
     public void verifyChangePasswordPage(){
         WebElement titleForm = this.driver.findElement(this.titleForm);

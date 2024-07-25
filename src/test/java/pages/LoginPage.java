@@ -5,10 +5,11 @@ import org.openqa.selenium.WebDriver;
 
 public class LoginPage {
     WebDriver driver;
-    private String password = BaseTest.ini_password;
+    private String password;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
+        this.password = BaseTest.ini_password;
     }
 
     public String getPassword() {

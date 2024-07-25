@@ -47,10 +47,10 @@ public class HomePage {
     }
 
     public void verifyHomePage(){
-        System.out.println("//td[contains(text(),'"+ BaseTest.ini_username+"')]");
         this.driver.findElement(this.titlePage).isDisplayed();
         this.driver.findElement(this.mangerID).isDisplayed();
         Assert.assertEquals(this.driver.findElement(this.titlePage).getText(),"Guru99 Bank");
         assert this.driver.findElement(this.mangerID).getText().contains(BaseTest.ini_username);
     }
+
 }

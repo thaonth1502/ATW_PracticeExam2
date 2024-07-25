@@ -1,6 +1,5 @@
 package pages;
 
-import Common.CommonClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -191,7 +190,6 @@ public class NewCustomerPage {
         }
         else {
            this.dateOfBirth = dob;
-//           CommonClass.convertFormatStringToDate(this.dateOfBirth);
            SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyyyy");
            SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
            this.dateOfBirth = date.format(dateFormat.parse(this.dateOfBirth));

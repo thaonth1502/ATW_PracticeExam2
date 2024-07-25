@@ -45,8 +45,8 @@ public class PracticeExam2 extends BaseTest {
         login();
         this.homePage.clickMenuChangePassword();
         this.changePasswordPage.inputOldPassword(loginPage.getPassword());
-        this.changePasswordPage.inputNewPassword("123488888@");
-        this.changePasswordPage.inputConfirmPassword("123488888@");
+        this.changePasswordPage.inputNewPassword("188888888@");
+        this.changePasswordPage.inputConfirmPassword("188888888@");
         this.changePasswordPage.clickSubmitButton();
         this.changePasswordPage.verifyMessageSuccessfully();
         login();

@@ -12,7 +12,7 @@ public class ChangePasswordPage {
     WebDriver driver;
     Actions actions;
     LoginPage loginPage = new LoginPage(this.driver);
-    String actualPassword;
+    String actualPassword = loginPage.getPassword();
 
     public ChangePasswordPage(WebDriver driver) {
         this.driver = driver;
@@ -68,6 +68,8 @@ public class ChangePasswordPage {
     public void clickSubmitButton(){
         this.driver.findElement(this.bnt_submit).click();
         System.out.println(this.actualPassword);
+        loginPage.setPassword(this.actualPassword);
+        BaseTest.ini_password = loginPage.getPassword();
     }
 
     public void verifyMessageSuccessfully(){

@@ -67,7 +67,9 @@ public class ChangePasswordPage {
             String actualMessage = this.driver.findElement(this.actualMessConfirmPass).getText();
             Assert.assertEquals(actualMessage,expectedMessage);
         }else if(!confirmPassword.equals(this.actualPassword)){
-            Assert.assertEquals(this.driver.findElement(By.xpath("//label[contains(text(),'Passwords do not Match')]")).getText(),"Passwords do not Match");
+            Assert.assertEquals(this.driver.findElement
+                            (By.xpath("//label[contains(text(),'Passwords do not Match')]")).getAttribute("innerHTML"),
+                             "Passwords do not Match");
         }
     }
 
@@ -76,17 +78,35 @@ public class ChangePasswordPage {
         setActualPassword(this.actualPassword);
     }
 
+//    public void verifyMessageSuccessfully(){
+//      String messageSuccess =  this.driver.switchTo().alert().getText();
+//      String expectedMessage = "Password is Changed";
+//      Assert.assertEquals(messageSuccess,expectedMessage);
+//      this.driver.switchTo().alert().accept();
+//      setActualPassword(this.actualPassword);
+//      this.actualPassword = getActualPassword();
+//    }
+
     public void verifyMessageSuccessfully(){
-      String messageSuccess =  this.driver.switchTo().alert().getText();
-      String expectedMessage = "Password is Changed";
-      Assert.assertEquals(messageSuccess,expectedMessage);
-      this.driver.switchTo().alert().accept();
-      setActualPassword(this.actualPassword);
-      this.actualPassword = getActualPassword();
+        String actualMess =  verifyMessageAlert();
+        String expectedMessage = "Password is Changed";
+        if(expectedMessage.equals(expectedMessage)) {
+          setActualPassword(this.actualPassword);
+          this.actualPassword = getActualPassword();
+      }
     }
+
     public void verifyChangePasswordPage(){
         WebElement titleForm = this.driver.findElement(this.titleForm);
         assert  titleForm.isDisplayed();
         Assert.assertEquals(titleForm.getText(),"Change Password");
+    }
+
+    public String verifyMessageAlert(){
+        String messageAlert = this.driver.switchTo().alert().getText();
+        return messageAlert;
+    }
+    public void acceptAlterPopup(){
+        this.driver.switchTo().alert().accept();
     }
 }

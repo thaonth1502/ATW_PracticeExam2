@@ -73,9 +73,6 @@ public class ChangePasswordPage {
 <<<<<<< HEAD
             Assert.assertEquals(this.driver.findElement(By.xpath("//label[contains(text(),'Passwords do not Match')]")).getAttribute("innerHTML"),"Passwords do not Match");
 =======
-            Assert.assertEquals(this.driver.findElement
-                            (By.xpath("//label[contains(text(),'Passwords do not Match')]")).getAttribute("innerHTML"),
-                             "Passwords do not Match");
 >>>>>>> 161e3871f280c86213b4d7ad39a2d89e17b9190f
         }
     }

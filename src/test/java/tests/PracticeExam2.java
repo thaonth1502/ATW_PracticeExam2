@@ -23,13 +23,12 @@ public class PracticeExam2 extends BaseTest {
 
     @DataProvider(name = "dataCreatNewCustomer")
     public Object[][] creatNewCustomer(){
+    @DataProvider(name = "dataCreateNewCustomer")
+    public Object[][] createNewCustomer(){
         return new Object[][]{
                 {"","", "", "","","","","","","","please fill all fields"},
                 {"Nguyen Huong Thao","f", "02151989", "Hanoi","Hanoi","Cau Giay","12345","098765432","huongthao@gmail.com","12345678@","please fill all fields"},
                 {"Nguyen Huong Thao","f", "02151989", "Hanoi","Hanoi","Cau Giay","123456","098765432","huongthao89@gmail.com","12345678@","Your User id is wrong please provide correct userid"},
-                {"Nguyen Huong Thao","f", "02151989", "Hanoi","Hanoi","Cau Giay","12345","098765432","huongthao1@gmail.com","12345678@"},
-        };
-    }
 
     @DataProvider (name = "dataChangePassword")
     public Object[][] changePassword(){
@@ -41,16 +40,9 @@ public class PracticeExam2 extends BaseTest {
         };
     }
 
-    @DataProvider (name ="dataCrateNewCustomer")
-    public Object[][] createNewCustomer(){
-        return  new Object[][]{
-                {"", "", "", "", "", "","", "", "", "", "", "Please fill all fields"},
-                {"", "", "", "", "", ""," ", "12345", "", "", "", "PIN Code must have 6 Digits"},
-                {"Nguyen Huong Thao", "f", "02151989", "Hanoi", "Hanoi", "Cau Giay", "12345", "123456", "098765432", "huongthao"+(int)(Math.random()* 250 + 1)+"@gmail.com", "12345678@", "PIN Code must have 6 Digits"}
-
+                {"Nguyen Huong Thao","f", "02151989", "Hanoi","Hanoi","CauGiay","12345","098765432","huongthao1@gmail.com","12345678@"},
         };
     }
-
     @BeforeMethod()
     public void loginSuccess(){
         this.loginPage.inputUserName(BaseTest.ini_username);
@@ -141,6 +133,7 @@ public void testCaseChangePassword(String oldPassword, String newPassword, Strin
 
     @Test(priority = 6)
     public void testCaseCreateNewCustomerSuccess() throws InterruptedException, ParseException {
+    public void testCaseCreateNewCustomerSuccess() throws ParseException {
         this.homePage.clickMenuNewCustomer();
         this.newCustomerPage.verifyCustomerPage();
         this.newCustomerPage.inputCustomerName("Nguyen Huong Thao");

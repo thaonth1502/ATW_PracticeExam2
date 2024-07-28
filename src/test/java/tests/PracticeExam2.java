@@ -31,6 +31,26 @@ public class PracticeExam2 extends BaseTest {
         };
     }
 
+    @DataProvider (name = "dataChangePassword")
+    public Object[][] changePassword(){
+        return new Object[][]{
+                {"","","", "Please fill all fields"},
+                {"12345678@", "12345678@", "112345678@","Please fill all fields"},
+                {"000000000@", "12345688@", "12345688@", "Old Password is incorrect"},
+                {ini_password, "12345688@", "12345688@", "Password is Changed"}
+        };
+    }
+
+    @DataProvider (name ="dataCrateNewCustomer")
+    public Object[][] createNewCustomer(){
+        return  new Object[][]{
+                {"", "", "", "", "", "","", "", "", "", "", "Please fill all fields"},
+                {"", "", "", "", "", ""," ", "12345", "", "", "", "PIN Code must have 6 Digits"},
+                {"Nguyen Huong Thao", "f", "02151989", "Hanoi", "Hanoi", "Cau Giay", "12345", "123456", "098765432", "huongthao"+(int)(Math.random()* 250 + 1)+"@gmail.com", "12345678@", "PIN Code must have 6 Digits"}
+
+        };
+    }
+
     @BeforeMethod()
     public void loginSuccess(){
         this.loginPage.inputUserName(BaseTest.ini_username);
@@ -38,6 +58,7 @@ public class PracticeExam2 extends BaseTest {
         this.loginPage.clickLoginButton();
         this.homePage.verifyHomePage();
     }
+<<<<<<< HEAD
 @Test(priority = 1, dataProvider = "dataChangePassword")
 public void testCaseChangePassword(String oldPassword, String newPassword, String confirmPassword, String result){
     this.homePage.clickMenuChangePassword();
@@ -54,6 +75,45 @@ public void testCaseChangePassword(String oldPassword, String newPassword, Strin
         loginSuccess();
     }
 }
+=======
+    @Test(priority = 1, dataProvider = "dataChangePassword")
+    public void testCaseChangePassword(String oldPass, String newPass, String confirmPass, String result){
+        this.homePage.clickMenuChangePassword();
+        this.changePasswordPage.verifyChangePasswordPage();
+        this.changePasswordPage.inputOldPassword(oldPass);
+        this.changePasswordPage.inputNewPassword(newPass);
+        this.changePasswordPage.inputConfirmPassword(confirmPass);
+        this.changePasswordPage.clickSubmitButton();
+        String actualMessage =  this.changePasswordPage.verifyMessageAlert();
+        Assert.assertEquals(actualMessage,result);
+        this.changePasswordPage.verifyMessageSuccessfully();
+        this.changePasswordPage.acceptAlterPopup();
+        if(result.equals("Password is Changed")){
+            loginSuccess();
+        }
+    }
+//
+//        @Test(priority = 2)
+//    public void ChangePassword_Fail_NewPassNotSameConfirmPass(){
+//        this.homePage.clickMenuChangePassword();
+//        this.changePasswordPage.inputOldPassword(loginPage.getPassword());
+//        this.changePasswordPage.inputNewPassword("12345678@");
+//        this.changePasswordPage.inputConfirmPassword("112345678@");
+//
+//    }
+//    @Test(priority = 3)
+//    public void testCaseChangePasswordSuccess(){
+//        this.homePage.clickMenuChangePassword();
+//        this.changePasswordPage.inputOldPassword(loginPage.getPassword());
+//        this.changePasswordPage.inputNewPassword("12345678@");
+//        this.changePasswordPage.inputConfirmPassword("12345678@");
+//        this.changePasswordPage.clickSubmitButton();
+//        this.changePasswordPage.verifyMessageSuccessfully();
+//        loginSuccess();
+//
+//    }
+
+>>>>>>> 161e3871f280c86213b4d7ad39a2d89e17b9190f
     @Test(priority = 4)
     public void testCaseCreateNewCustomerAllFieldsBlank() throws ParseException {
         this.homePage.clickMenuNewCustomer();

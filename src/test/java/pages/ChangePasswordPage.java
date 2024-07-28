@@ -13,6 +13,7 @@ public class ChangePasswordPage {
     Actions actions;
     LoginPage loginPage = new LoginPage(this.driver);
     private String actualPassword;
+    private String tempPass;
 
     public String getActualPassword(){
         return actualPassword;
@@ -55,6 +56,8 @@ public class ChangePasswordPage {
         if(newPassword == ""){
             String actualMessage = this.driver.findElement(this.actualMessNewPass).getText();
             Assert.assertEquals(actualMessage,expectedMessage);
+        }else {
+            this.tempPass = newPassword;
         }
     }
 
@@ -67,23 +70,30 @@ public class ChangePasswordPage {
             String actualMessage = this.driver.findElement(this.actualMessConfirmPass).getText();
             Assert.assertEquals(actualMessage,expectedMessage);
         }else if(!confirmPassword.equals(this.actualPassword)){
-            Assert.assertEquals(this.driver.findElement(By.xpath("//label[contains(text(),'Passwords do not Match')]")).getText(),"Passwords do not Match");
+            Assert.assertEquals(this.driver.findElement(By.xpath("//label[contains(text(),'Passwords do not Match')]")).getAttribute("innerHTML"),"Passwords do not Match");
         }
     }
 
     public void clickSubmitButton(){
         this.driver.findElement(this.bnt_submit).click();
-        setActualPassword(this.actualPassword);
     }
 
-    public void verifyMessageSuccessfully(){
-      String messageSuccess =  this.driver.switchTo().alert().getText();
-      String expectedMessage = "Password is Changed";
-      Assert.assertEquals(messageSuccess,expectedMessage);
-      this.driver.switchTo().alert().accept();
-      setActualPassword(this.actualPassword);
+    public void setNewPassword(){
+      setActualPassword(this.tempPass);
+      System.out.println(getActualPassword());
       this.actualPassword = getActualPassword();
+      System.out.println(actualPassword);
     }
+
+    public String getMessageAlter(){
+        String messageAlter = this.driver.switchTo().alert().getText();
+        return messageAlter;
+    }
+
+    public void closeAlterMessage(){
+        this.driver.switchTo().alert().accept();
+    }
+
     public void verifyChangePasswordPage(){
         WebElement titleForm = this.driver.findElement(this.titleForm);
         assert  titleForm.isDisplayed();

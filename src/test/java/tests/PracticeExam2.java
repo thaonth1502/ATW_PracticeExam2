@@ -1,6 +1,5 @@
 package tests;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -11,7 +10,6 @@ import pages.BaseTest;
 import java.text.ParseException;
 
 public class PracticeExam2 extends BaseTest {
-    WebDriver driver;
     @DataProvider(name = "dataChangePassword")
     public Object[][] changePassword(){
         return new Object[][]{
@@ -21,25 +19,12 @@ public class PracticeExam2 extends BaseTest {
         };
     }
 
-    @DataProvider(name = "dataCreatNewCustomer")
-    public Object[][] creatNewCustomer(){
     @DataProvider(name = "dataCreateNewCustomer")
     public Object[][] createNewCustomer(){
         return new Object[][]{
                 {"","", "", "","","","","","","","please fill all fields"},
                 {"Nguyen Huong Thao","f", "02151989", "Hanoi","Hanoi","Cau Giay","12345","098765432","huongthao@gmail.com","12345678@","please fill all fields"},
                 {"Nguyen Huong Thao","f", "02151989", "Hanoi","Hanoi","Cau Giay","123456","098765432","huongthao89@gmail.com","12345678@","Your User id is wrong please provide correct userid"},
-
-    @DataProvider (name = "dataChangePassword")
-    public Object[][] changePassword(){
-        return new Object[][]{
-                {"","","", "Please fill all fields"},
-                {"12345678@", "12345678@", "112345678@","Please fill all fields"},
-                {"000000000@", "12345688@", "12345688@", "Old Password is incorrect"},
-                {ini_password, "12345688@", "12345688@", "Password is Changed"}
-        };
-    }
-
                 {"Nguyen Huong Thao","f", "02151989", "Hanoi","Hanoi","CauGiay","12345","098765432","huongthao1@gmail.com","12345678@"},
         };
     }
@@ -50,7 +35,6 @@ public class PracticeExam2 extends BaseTest {
         this.loginPage.clickLoginButton();
         this.homePage.verifyHomePage();
     }
-<<<<<<< HEAD
 @Test(priority = 1, dataProvider = "dataChangePassword")
 public void testCaseChangePassword(String oldPassword, String newPassword, String confirmPassword, String result){
     this.homePage.clickMenuChangePassword();
@@ -67,45 +51,6 @@ public void testCaseChangePassword(String oldPassword, String newPassword, Strin
         loginSuccess();
     }
 }
-=======
-    @Test(priority = 1, dataProvider = "dataChangePassword")
-    public void testCaseChangePassword(String oldPass, String newPass, String confirmPass, String result){
-        this.homePage.clickMenuChangePassword();
-        this.changePasswordPage.verifyChangePasswordPage();
-        this.changePasswordPage.inputOldPassword(oldPass);
-        this.changePasswordPage.inputNewPassword(newPass);
-        this.changePasswordPage.inputConfirmPassword(confirmPass);
-        this.changePasswordPage.clickSubmitButton();
-        String actualMessage =  this.changePasswordPage.verifyMessageAlert();
-        Assert.assertEquals(actualMessage,result);
-        this.changePasswordPage.verifyMessageSuccessfully();
-        this.changePasswordPage.acceptAlterPopup();
-        if(result.equals("Password is Changed")){
-            loginSuccess();
-        }
-    }
-//
-//        @Test(priority = 2)
-//    public void ChangePassword_Fail_NewPassNotSameConfirmPass(){
-//        this.homePage.clickMenuChangePassword();
-//        this.changePasswordPage.inputOldPassword(loginPage.getPassword());
-//        this.changePasswordPage.inputNewPassword("12345678@");
-//        this.changePasswordPage.inputConfirmPassword("112345678@");
-//
-//    }
-//    @Test(priority = 3)
-//    public void testCaseChangePasswordSuccess(){
-//        this.homePage.clickMenuChangePassword();
-//        this.changePasswordPage.inputOldPassword(loginPage.getPassword());
-//        this.changePasswordPage.inputNewPassword("12345678@");
-//        this.changePasswordPage.inputConfirmPassword("12345678@");
-//        this.changePasswordPage.clickSubmitButton();
-//        this.changePasswordPage.verifyMessageSuccessfully();
-//        loginSuccess();
-//
-//    }
-
->>>>>>> 161e3871f280c86213b4d7ad39a2d89e17b9190f
     @Test(priority = 4)
     public void testCaseCreateNewCustomerAllFieldsBlank() throws ParseException {
         this.homePage.clickMenuNewCustomer();
@@ -132,7 +77,6 @@ public void testCaseChangePassword(String oldPassword, String newPassword, Strin
     }
 
     @Test(priority = 6)
-    public void testCaseCreateNewCustomerSuccess() throws InterruptedException, ParseException {
     public void testCaseCreateNewCustomerSuccess() throws ParseException {
         this.homePage.clickMenuNewCustomer();
         this.newCustomerPage.verifyCustomerPage();
